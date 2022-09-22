@@ -1,0 +1,9 @@
+{
+  "API_URL_CONTENT_BOOKS_IN_CREATION": "http://localhost:8080/api/content/book/inCreation",
+  "API_URL_CONTENT_SAVE_BOOK": "http://localhost:8080/api/content/book/saveBook",
+  "API_URL_CONTENT_SAVE_AUTHOR": "http://localhost:8080/api/content/author/saveAuthor",
+  "API_URL_CONTENT_FETCH_AUTHORS": "http://localhost:8080/api/content/author/fetchAll",
+  "API_URL_CONTENT_PUBLISHED_BOOKS": "http://localhost:8080/api/content/book/published",
+  "API_URL_CONTENT_PENDING": "http://localhost:8080/api/content/book/published",
+  "API_URL_CONTENT_FILE": "http://localhost:8080/api/content/files/"
+}
