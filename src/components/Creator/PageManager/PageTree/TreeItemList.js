@@ -5,33 +5,29 @@ import {useSelector} from "react-redux";
 const TreeItemList = ({paddingLeft}, ...restProps) => {
 
     const {pages} = useSelector(state => state.content.inEdition.book)
-    const firstPage = pages.find(page => page.parentId === null)
 
     return (
         <>
-            {}
-            {/*{page && <PageTreeItem page={page} paddingLeft={paddingLeft}/>}*/}
-            {/*<RenderTree page={page?.nextPage} parentPageNo={page?.parentPageNo} paddingLeft={paddingLeft + 20}/>*/}
+            <RenderItem pages={pages} paddingLeft={paddingLeft} parentPageId={null}/>
         </>
     )
 }
 
-const RenderTree = ({page, paddingLeft, parentPageNo}, ...restProps) => {
+const RenderItem = ({pages, paddingLeft, parentPageId}, ...restProps) => {
     return (
         <>
-            {/*{page?.map(item => (*/}
-            {/*    <>*/}
-            {/*        <PageTreeItem key={item.id}*/}
-            {/*                      parentPageNo={parentPageNo}*/}
-            {/*                      page={item}*/}
-            {/*                      paddingLeft={paddingLeft}/>*/}
-
-            {/*        {item.nextPage && <RenderTree*/}
-            {/*            page={item.nextPage}*/}
-            {/*            parentPageNo={item.pageNo}*/}
-            {/*            paddingLeft={paddingLeft +20}/>}*/}
-            {/*    </>*/}
-            {/*))}*/}
+            {pages?.filter(page => page.parentPageId === parentPageId)
+                ?.map(page => (
+                    <>
+                        <PageTreeItem key={page.id}
+                                      page={page}
+                                      paddingLeft={paddingLeft}>
+                        </PageTreeItem>
+                        <RenderItem pages={pages}
+                                    parentPageId={page.id}
+                                    paddingLeft={paddingLeft +20}/>
+                    </>
+                ))}
         </>
     )
 }

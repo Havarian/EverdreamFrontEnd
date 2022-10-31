@@ -27,7 +27,6 @@ export const PageTreeItem = ({paddingLeft, page}, ...restProps) => {
 
     const handleAddPageButton = () => {
         dispatch(newPage())
-        dispatch(setParentPageNo(page.pageNo))
     }
 
     const handleAddCrossPageButton = () => {
