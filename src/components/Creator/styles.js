@@ -19,6 +19,8 @@ export const SidePanel = styled('div')`
   padding: 10px;
   background-color: #f0f0f0;
   position: relative;
+  display: flex;
+  flex-direction: column;
 `
 
 export const MainPanel = styled('div')`
@@ -36,6 +38,13 @@ export const StyledCloseOutlined = styled(CloseOutlined)`
   cursor: pointer;
 `
 
+export const AuthorsContainer = styled(`div`)`
+  width: 100%;
+  padding: 10px;
+  position: relative;
+  box-sizing: border-box;
+`
+
 export const AuthorNameContainer = styled(`div`)`
   width: 100%;
   padding: 5px;
@@ -45,4 +54,10 @@ export const AuthorNameContainer = styled(`div`)`
 
 export const AuthorName = styled(`div`)`
   font-size: 20px;
+`
+
+export const ButtonContainer = styled(`div`)`
+  position: absolute;
+  bottom: 50px;
+  right: 0;
 `

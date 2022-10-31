@@ -1,11 +1,11 @@
 import {
     AuthorName,
-    AuthorNameContainer,
+    AuthorNameContainer, AuthorsContainer, ButtonContainer,
     CreatorWrapper,
     MainPanel,
     SidePanel,
     StyledCloseOutlined
-} from "./styles/Creator";
+} from "./styles";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -18,7 +18,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import {removeAuthors, setCoverImageName, setDescription, setTitle} from "../../redux/slices/content/BookEditionSlice";
 import fileService from "../../services/content/FileService";
 import AuthorManager from "../Author/AuthorManager";
-import PageManager from "./PageManager";
+import PageManager from "./PageManager/PageManager";
 import Box from "@mui/material/Box";
 
 const Creator = (props) => {
@@ -28,7 +28,7 @@ const Creator = (props) => {
     const [image, setImage] = useState()
     const [open, setOpen] = useState(false)
 
-    const book = useSelector(state => state.content.inEdition)
+    const book = useSelector(state => state.content.inEdition.book)
 
     const writers = book.authors.filter(author => author.type.includes("writer"))
     const illustrators = book.authors.filter(author => author.type.includes("illustrator"))
@@ -135,7 +135,16 @@ const Creator = (props) => {
                                 onClick={() => dispatch(removeAuthors(illustrator.id))}
                         >Usuń</Button>
                     </AuthorNameContainer>)}
-                <Button variant={"outlined"} color={"secondary"} size={"small"} onClick={openPageManager}>Dodaj Strony</Button>
+                <Button variant={"outlined"}
+                        color={"secondary"}
+                        size={"small"}
+                        onClick={openPageManager} styles={{marginTop: "10px"}}>Dodaj Strony</Button>
+                <ButtonContainer styles={{right: "60px"}}>
+                    <Button variant={"outlined"}
+                            color={"secondary"}
+                    >Publikuj</Button>
+                </ButtonContainer>
+
             </SidePanel>
 
             <MainPanel>

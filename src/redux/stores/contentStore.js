@@ -1,11 +1,11 @@
 import {combineReducers} from "redux";
-import BookEditionSlice from "../slices/content/BookEditionSlice";
 import BooksInCreationSlice from "../slices/content/BooksInCreationSlice";
 import BooksPublishedSlice from "../slices/content/BooksPublishedSlice";
 import AuthorSlice from "../slices/content/AuthorSlice";
+import InEditionStore from "./inEditionStore";
 
 const contentStore = combineReducers({
-    inEdition: BookEditionSlice,
+    inEdition: InEditionStore,
     inCreation: BooksInCreationSlice,
     published: BooksPublishedSlice,
     author: AuthorSlice

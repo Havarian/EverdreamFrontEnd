@@ -1,4 +1,5 @@
 import styled from "styled-components/macro"
+import {ThumbnailCardContainer} from "../../BookCards/ThumbnailCard/styles";
 
 export const SliderItem = styled.div`
    height: 11.25vw;
@@ -10,6 +11,7 @@ export const SliderItem = styled.div`
    margin: 0 0.2vw;
    transition: ease-in-out;
    transition-duration: 400ms;
+  position: relative;
 
    @media (max-width: 600px){
      flex: 0 0 32vw;
@@ -17,9 +19,17 @@ export const SliderItem = styled.div`
    }
 `
 
+export const ItemButtonContainer = styled.div`
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: none;
+`
+
+
 export const SliderContainer = styled.div`
   display: flex;
-  padding: 3vw 0.6vw 0 0.6vw;
+  padding: 0.3vw 0.6vw 1vw 0.6vw;
   // &:hover ${SliderItem}{
   //   transform: translateX(-25%);
   // }
@@ -47,9 +57,13 @@ export const SliderContainer = styled.div`
       :hover {
         transform: scale(1.5);
         border: whitesmoke 0.02vw solid;
+        ${ItemButtonContainer} {
+          display: block;
+        }
       }
       // :hover ~${SliderItem} {
       //   transform: translateX(25%);
       // }
     }
 `
+

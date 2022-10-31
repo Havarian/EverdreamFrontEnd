@@ -24,16 +24,16 @@ const columns = [
     }
 ];
 
-const AuthorDataGrid = (props) => {
+const AuthorDataGrid = ({setCurrentAuthor, authors, open}, ...restProps) => {
 
     const handleRowClick = (author) => {
-        props.setCurrentAuthor(author)
+        setCurrentAuthor(author)
     }
 
     return (
         <div style={{ height: "80vh", width: '100%' }}>
             <DataGrid
-                rows={props.authors}
+                rows={authors}
                 columns={columns}
                 pageSize={10}
                 rowsPerPageOptions={[10]}
@@ -43,7 +43,7 @@ const AuthorDataGrid = (props) => {
             <ButtonGroup style={{padding: "10px 0px"}}>
                 <Button variant={"outlined"}
                         color={"secondary"}
-                        onClick={props.open}
+                        onClick={open}
                         startIcon={<AddOutlined/>}
                 >Nowy Autor</Button>
             </ButtonGroup>
