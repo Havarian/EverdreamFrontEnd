@@ -5,6 +5,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
+import {useDispatch} from "react-redux";
 
 const style = {
     margin: "5px 5px 5px 5px",
@@ -27,8 +28,14 @@ export const AddToFavButton = (props) => {
 }
 
 export const MoreButton = (props) => {
+
     return (
-        <Button size={props.size} variant={"outlined"} endIcon={<ExpandMoreIcon/>} style={style}>Więcej</Button>
+        <Button size={props.size}
+                variant={"outlined"}
+                endIcon={<ExpandMoreIcon/>}
+                style={style} onClick={props.onClick}
+                color={props.color ? props.color : "primary"}
+        >Więcej</Button>
     )
 }
 

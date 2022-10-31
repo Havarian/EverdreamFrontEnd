@@ -4,11 +4,17 @@ import AuthService from "../services/authentication/AuthService";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchPublishedBooks, setPublishedDownloaded} from "../redux/slices/content/BooksPublishedSlice";
 import Billboard from "../components/Billboard/Billboard";
-import image from "../files/img/1.jpg"
 import Slider from "../components/Slider";
 import {SliderWrapper} from "./styles/Pages";
+import ExpandedCard from "../components/BookCards/ExpandedCard/ExpandedCard";
+import Typography from "@mui/material/Typography";
+import image from "../files/img/1.jpg"
+import image2 from "../files/img/2.jpg"
+import image3 from "../files/img/4.jpg"
 
 export default function MainPage() {
+
+    const images = [image, image2, image3]
 
     const currentUser = AuthService.getCurrentUser()
     const navigate = useNavigate()
@@ -30,18 +36,20 @@ export default function MainPage() {
 
     const book = {
         title: "My Colorfull Story",
-        description: "Wyrusz w niesamowitą przygodę, w baśniowym lesie. Rozwiąż zagadkę i pokieruj losem bohaterów."
+        description: "Wyrusz w niezapomnianą przygodę, do magicznego lasu. Poznaj jego tajemniczych mieszkańców, i odkryj w raz z nimi tajemnice, które skrywa to magiczne miejsce"
     }
 
     return (
         <>
-            <SliderWrapper>
-                <Billboard image={image} book={book}/>
-                <Slider image={image}/>
-                <Slider image={image}/>
-                <Slider image={image}/>
-            </SliderWrapper>
-
+            <Billboard image={image} book={book}/>
+            <ExpandedCard/>
+            <br/>
+            <Typography variant={"button"}
+                        fontSize={"18px"} style={{margin: "10px 0 10px 50px"}}>Moje Książki</Typography>
+            <Slider image={images}/>
+            <Typography variant={"button"}
+                        fontSize={"18px"} style={{margin: "10px 0 10px 50px"}}>Katalog</Typography>
+            <Slider image={image}/>
         </>
     )
 }

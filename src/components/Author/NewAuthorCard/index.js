@@ -68,10 +68,10 @@ const NewAuthorCard = (props) => {
                         type="file"
                         accept="image/*"
                         style={{ display: "none" }}
-                        id="file"
+                        id="profilePicture"
                         onChange={handleAddPicture}
                     />
-                    <label htmlFor="file">
+                    <label htmlFor="profilePicture">
                         <Button
                             startIcon={<AddIcon/>}
                             variant="contained"

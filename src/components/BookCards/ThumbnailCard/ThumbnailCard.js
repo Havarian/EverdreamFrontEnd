@@ -1,9 +1,8 @@
-import {ThumbnailCardContainer} from "./styles/ThumbnailCard";
+import {ButtonContainer, ThumbnailCardContainer} from "./styles";
 
 const ThumbnailCard = (props) => {
     return (
-        <ThumbnailCardContainer>
-
+        <ThumbnailCardContainer image={props.image}>
         </ThumbnailCardContainer>
     )
 }

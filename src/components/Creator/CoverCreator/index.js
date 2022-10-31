@@ -4,7 +4,7 @@ import {useSelector} from "react-redux";
 
 const CoverPreview = (props) => {
 
-    const book = useSelector(state => state.content.inEdition)
+    const book = useSelector(state => state.content.inEdition.book)
 
     return (
         <>

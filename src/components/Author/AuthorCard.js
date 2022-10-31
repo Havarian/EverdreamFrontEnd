@@ -13,25 +13,26 @@ import {useDispatch} from "react-redux";
 import MenuItem from "@mui/material/MenuItem";
 import {addAuthors} from "../../redux/slices/content/BookEditionSlice";
 
-export default function AuthorCard(props) {
+export default function AuthorCard({currentAuthor}, ...restProps) {
 
+    const {profilePictureName, name, surname, email, description, homePageUrl} = currentAuthor
     const [image, setImage] = useState(null)
     const [authorType, setAuthorType] = useState("")
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if (sessionStorage.getItem(props.currentAuthor.profilePictureName)) {
-            setImage(sessionStorage.getItem(props.currentAuthor.profilePictureName))
+        if (sessionStorage.getItem(profilePictureName)) {
+            setImage(sessionStorage.getItem(profilePictureName))
         } else {
-            fileService.fetchFile(props.currentAuthor.profilePictureName).then(res => {
-                sessionStorage.setItem(props.currentAuthor.profilePictureName, res)
-                setImage(sessionStorage.getItem(props.currentAuthor.profilePictureName))
+            fileService.fetchFile(profilePictureName).then(res => {
+                sessionStorage.setItem(profilePictureName, res)
+                setImage(sessionStorage.getItem(profilePictureName))
             })
         }
-    },[image, props.currentAuthor])
+    },[image, currentAuthor, profilePictureName])
 
     const handleAdd = () => {
-        let author = JSON.parse(JSON.stringify(props.currentAuthor))
+        let author = JSON.parse(JSON.stringify(currentAuthor))
         author.type = authorType
         dispatch(addAuthors(author))
     }
@@ -44,7 +45,7 @@ export default function AuthorCard(props) {
         <>
             <Card sx={{ maxWidth: 400, margin: "auto"}}>
                 <CardHeader
-                title={props.currentAuthor.name + " " + props.currentAuthor.surname}
+                title={name + " " + surname}
                 />
                 {image ?
                     <CardMedia
@@ -57,15 +58,15 @@ export default function AuthorCard(props) {
                     <Skeleton variant={"rectangular"} width={"100%"} height={250}/>}
                 <CardContent>
                     <Typography variant="body2" color="text.secondary">
-                        O autorze: {props.currentAuthor.description}
+                        O autorze: {description}
                     </Typography>
                     <Divider style={{margin: "5px 5px"}}/>
                     <Typography variant="body2" color="text.secondary">
-                        Adres Email: {props.currentAuthor.email}
+                        Adres Email: {email}
                     </Typography>
                     <Divider style={{margin: "5px 5px"}}/>
                     <Typography variant="body2" color="text.secondary">
-                        Adres strony: {props.currentAuthor.homePageUrl}
+                        Adres strony: {homePageUrl}
                     </Typography>
                 </CardContent>
                     <CardActions disableSpacing
