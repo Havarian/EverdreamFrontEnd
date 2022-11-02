@@ -6,6 +6,9 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import {useDispatch} from "react-redux";
+import {setBookInEdition} from "../../redux/slices/content/BookEditionSlice";
+import {SetIsCreatorOpen} from "../../redux/slices/appState/creatorSlice";
+import FileService from "../../services/content/FileService";
 
 const style = {
     margin: "5px 5px 5px 5px",
@@ -39,15 +42,34 @@ export const MoreButton = (props) => {
     )
 }
 
-export const EditButton = (props) => {
+export const EditButton = ({size, book}, ...restProps) => {
+
+    const dispatch = useDispatch()
+
+    const handleClick = () => {
+        dispatch(setBookInEdition(book))
+        dispatch(SetIsCreatorOpen(true))
+    }
+
     return (
-        <Button size={props.size} variant={"outlined"} startIcon={<EditOutlinedIcon/>} style={style}>Edytuj</Button>
+        <Button size={size}
+                variant={"outlined"}
+                startIcon={<EditOutlinedIcon/>}
+                style={style}
+                onClick={handleClick}>Edytuj</Button>
     )
 }
 
-export const DeleteButton = (props) => {
+export const DeleteButton = ({size, book}, ...restProps) => {
+
+    const handleClick = () => {
+    }
+
     return (
-        <Button size={props.size} variant={"outlined"} startIcon={<DeleteForeverOutlinedIcon/>} style={style}>Usuń</Button>
+        <Button size={size}
+                variant={"outlined"}
+                startIcon={<DeleteForeverOutlinedIcon/>}
+                style={style}>Usuń</Button>
     )
 }
 

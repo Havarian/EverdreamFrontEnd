@@ -5,7 +5,7 @@ import AuthorCard from "./AuthorCard";
 import AuthorDataGrid from "./AuthorDataGrid";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import NewAuthorCard from "./NewAuthorCard";
+import NewAuthorCard from "./NewAuthorCard/NewAuthorCard";
 import {Modal} from "@mui/material";
 import Box from "@mui/material/Box";
 

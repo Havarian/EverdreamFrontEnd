@@ -5,10 +5,7 @@ import {Checkbox, FormControlLabel, FormGroup} from "@mui/material";
 import Button from "@mui/material/Button";
 import {PageDataContainer} from "./styles";
 import {useDispatch, useSelector} from "react-redux";
-import {setCrossPage, setPageNo} from "../../../../redux/slices/content/PageEditionSlice";
-import {addPageToBook,
-    incrementPagesNo,
-    setBookInEdition} from "../../../../redux/slices/content/BookEditionSlice"
+import {setCrossPage} from "../../../../redux/slices/content/PageEditionSlice";
 import CrossPageText from "./CrossPageText";
 import {useEffect} from "react";
 
@@ -25,7 +22,7 @@ const TextEditor = () => {
 
 
     const savePage = () => {
-        dispatch(incrementPagesNo())
+
     }
 
     const handleCheckBoxChange = (event) => {

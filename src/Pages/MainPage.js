@@ -4,7 +4,7 @@ import AuthService from "../services/authentication/AuthService";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchPublishedBooks, setPublishedDownloaded} from "../redux/slices/content/BooksPublishedSlice";
 import Billboard from "../components/Billboard/Billboard";
-import Slider from "../components/Slider";
+import Slider from "../components/Slider/Slider";
 import {SliderWrapper} from "./styles/Pages";
 import ExpandedCard from "../components/BookCards/ExpandedCard/ExpandedCard";
 import Typography from "@mui/material/Typography";

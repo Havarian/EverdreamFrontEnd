@@ -1,4 +1,4 @@
-import Slider from "../components/Slider";
+import Slider from "../components/Slider/Slider";
 import Button from "@mui/material/Button";
 import {styled} from "@mui/system"
 import Creator from "../components/Creator/Creator";
@@ -7,10 +7,9 @@ import Box from "@mui/material/Box";
 import {useDispatch, useSelector} from "react-redux";
 import {SetIsCreatorOpen} from "../redux/slices/appState/creatorSlice";
 import Typography from "@mui/material/Typography";
-import image from "../files/img/1.jpg"
-import image2 from "../files/img/2.jpg"
-import image3 from "../files/img/4.jpg"
-import {saveBook, setNewBook} from "../redux/slices/content/BookEditionSlice";
+import {saveBook} from "../redux/slices/content/BookEditionSlice";
+import {useEffect} from "react";
+import {fetchBooksInCreation} from "../redux/slices/content/BooksInCreationSlice";
 
 const Wrapper = styled('div')`
   width: 100%;
@@ -19,13 +18,16 @@ const Wrapper = styled('div')`
   overflow-x:hidden; 
 `
 
-const images = [image, image2, image3]
-
 const CreatorPage = () => {
 
     const dispatch = useDispatch()
     const open = useSelector(state => state.appState.creator.isCreatorOpen)
-    const book = useSelector(state => state.content.inEdition.book)
+    const booksInCreation = useSelector(state => state.content.inCreation)
+    const pendingBooks = useSelector (state => state.content.pending)
+
+    useEffect(() => {
+        dispatch(fetchBooksInCreation())
+    }, )
 
     const handleOpen = () => {
         dispatch(SetIsCreatorOpen(true))
@@ -42,17 +44,19 @@ const CreatorPage = () => {
             <br/>
             <Typography variant={"button"}
                              fontSize={"18px"} style={{margin: "10px 0 10px 50px"}}>W trakcie tworzenia</Typography>
-            <Slider image={images}/>
+            {booksInCreation && <Slider books={booksInCreation} type={"inCreation"}/>}
+
             <Typography variant={"button"}
                         fontSize={"18px"} style={{margin: "10px 0 10px 50px"}}>Oczekujące na publikację</Typography>
-            {/*<Slider image={images}/>*/}
+
+
             <Button variant={"contained"} color={"secondary"} size={"large"}
                 sx={{position: "absolute", bottom: "2vh", right: "2vw"}}
                     onClick={handleOpen}
             >NOWA KSIĄŻKA</Button>
             <Modal open={open}>
                 <Box width={"100vw"} height={"100vh"}>
-                    <Creator closeCreatorModal={handleClose} title={"Królewna śnieżka"}/>
+                    <Creator closeCreatorModal={handleClose}/>
                 </Box>
             </Modal>
         </Wrapper>

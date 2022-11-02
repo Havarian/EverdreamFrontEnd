@@ -5,6 +5,7 @@ import {useSelector} from "react-redux";
 const TreeItemList = ({paddingLeft}, ...restProps) => {
 
     const {pages} = useSelector(state => state.content.inEdition.book)
+    const firstPage = pages.find(page => page.parentId === null)
 
     return (
         <>
