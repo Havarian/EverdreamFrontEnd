@@ -1,6 +1,6 @@
 import {DataGrid} from "@mui/x-data-grid";
 import Button from "@mui/material/Button";
-import {ButtonGroup} from "./NewAuthorCard/styles/newAuthorCard";
+import {ButtonGroup} from "./NewAuthorCard/styles";
 import {AddOutlined} from "@mui/icons-material";
 
 const columns = [

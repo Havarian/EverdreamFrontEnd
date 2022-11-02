@@ -1,7 +1,7 @@
 import styled from "styled-components/macro"
-import {ThumbnailCardContainer} from "../../BookCards/ThumbnailCard/styles";
+import SliderItem from "./SliderItem";
 
-export const SliderItem = styled.div`
+export const StyledSliderItem = styled.div`
    height: 11.25vw;
   background-image: url("${({image}) => image}");
   background-size: cover;
@@ -12,7 +12,6 @@ export const SliderItem = styled.div`
    transition: ease-in-out;
    transition-duration: 400ms;
   position: relative;
-
    @media (max-width: 600px){
      flex: 0 0 32vw;
      height: 18vw;
@@ -30,22 +29,22 @@ export const ItemButtonContainer = styled.div`
 export const SliderContainer = styled.div`
   display: flex;
   padding: 0.3vw 0.6vw 1vw 0.6vw;
-  // &:hover ${SliderItem}{
+  // &:hover ${StyledSliderItem}{
   //   transform: translateX(-25%);
   // }
   
-    ${SliderItem}:first-child {
+    ${StyledSliderItem}:first-child {
       :hover {
         transform: scale(1.5) translateX(15%);
         border: whitesmoke 0.02vw solid;
         z-index: 5;
       }
-      // :hover ~${SliderItem} {
+      // :hover ~${StyledSliderItem} {
       //   transform: translateX(47%);
       // }
     }
 
-  ${SliderItem}:last-child {
+  ${StyledSliderItem}:last-child {
     :hover {
       transform: scale(1.5) translateX(-15%);
       border: whitesmoke 0.02vw solid;
@@ -53,7 +52,7 @@ export const SliderContainer = styled.div`
     }
   }
     
-    ${SliderItem} {
+    ${StyledSliderItem} {
       :hover {
         transform: scale(1.5);
         border: whitesmoke 0.02vw solid;
@@ -61,7 +60,7 @@ export const SliderContainer = styled.div`
           display: block;
         }
       }
-      // :hover ~${SliderItem} {
+      // :hover ~${StyledSliderItem} {
       //   transform: translateX(25%);
       // }
     }

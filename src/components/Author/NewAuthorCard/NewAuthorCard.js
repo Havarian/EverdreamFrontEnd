@@ -1,4 +1,4 @@
-import {ButtonGroup, Container, Image, NameContainer} from "./styles/newAuthorCard";
+import {ButtonGroup, Container, Image, NameContainer} from "./styles";
 import TextField from "@mui/material/TextField";
 import {Paper} from "@mui/material";
 import SaveAltIcon from '@mui/icons-material/SaveAlt';

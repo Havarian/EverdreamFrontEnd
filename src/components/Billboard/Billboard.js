@@ -6,7 +6,7 @@ import {
     BillboardTextPane,
     BillboardTitle
 } from "./styles";
-import {AddToFavButton, MoreButton, PlayButton} from "../Buttons";
+import {AddToFavButton, MoreButton, PlayButton} from "../Buttons/AppButtons";
 import {useDispatch} from "react-redux";
 import {setIsExpandedCardVisible} from "../../redux/slices/appState/commonSlice";
 

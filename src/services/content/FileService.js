@@ -1,9 +1,8 @@
 import axios from "axios";
 import Config from "../../ConfigData.json"
-import AuthHeader from "../authentication/AuthHeader";
 
 const fetchFile = async (fileName) => {
-    return await axios.get(Config.API_URL_CONTENT_FILE + `${fileName}`, {headers: AuthHeader(), responseType: 'blob'})
+    return await axios.get(Config.API_URL_CONTENT_FILE + `${fileName}`, {headers: {responseType: 'blob'}})
         .then(res => URL.createObjectURL(res.data))
 }
 
