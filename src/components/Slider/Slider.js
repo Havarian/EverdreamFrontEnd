@@ -10,7 +10,7 @@ const Slider = ({books, type}, ...restProps) => {
         <SliderContainer>
             {
                 books?.map((book) => (
-                    <SliderItem book={book} type={type}/>
+                    <SliderItem key={book.id} book={book} type={type}/>
                 ))
             }
         </SliderContainer>

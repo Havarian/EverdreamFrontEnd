@@ -1,10 +1,10 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import bookService from "../../../services/content/BookService";
+import ContentService from "../../../services/content/ContentService";
 
 export const fetchBooksInCreation = createAsyncThunk("content/booksInCreation",
     async () => {
         try {
-            return await bookService.fetchBooksInCreation()
+            return await ContentService.fetchBooksInCreation()
                 .then (res => res.data)
         } catch (error) {
             console.log(error)

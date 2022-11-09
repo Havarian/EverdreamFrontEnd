@@ -1,5 +1,4 @@
 import styled from "styled-components/macro"
-import SliderItem from "./SliderItem";
 
 export const StyledSliderItem = styled.div`
    height: 11.25vw;

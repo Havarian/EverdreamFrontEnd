@@ -5,12 +5,17 @@ import MainPage from "./Pages/MainPage";
 import Register from "./Pages/Authorization/Register";
 import CreatorPage from "./Pages/CreatorPage";
 import AdminPage from "./Pages/AdminPage";
+import BookEditor from "./components/BookEditor/BookEditor";
+import {useSelector} from "react-redux";
 
 function App() {
+
+    const displayNavbar = useSelector(state => state.appState.navbar.displayNavbar)
+
   return (
       <>
           <BrowserRouter>
-              <NavBar/>
+              {displayNavbar ? <NavBar/> : null}
               <Routes>
                   <Route path={"/login"} element={<Login/>} />
                   <Route path={"/mainPage"} element={<MainPage/>} />
@@ -18,6 +23,7 @@ function App() {
                   <Route path={"/register"} element={<Register/>} />
                   <Route path={"/creatorPage"} element={<CreatorPage/>} />
                   <Route path={"/adminPage"} element={<AdminPage/>} />
+                  <Route path={"/bookEditor"} element={<BookEditor/>}/>
               </Routes>
           </BrowserRouter>
       </>

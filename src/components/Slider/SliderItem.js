@@ -9,15 +9,15 @@ const SliderItem = ({type, book}, ...restProps) => {
     const [coverImage, setCoverImage] = useState(null);
 
     useEffect(() => {
-        if (sessionStorage.getItem(book.coverImageName)) {
-            setCoverImage(sessionStorage.getItem(book.coverImageName))
-        } else {
+        setCoverImage(sessionStorage.getItem(book.coverImageName))
+
+        if (coverImage == null) {
             fileService.fetchFile(book.coverImageName).then(res => {
                 sessionStorage.setItem(book.coverImageName, res)
                 setCoverImage(res)
-            })
+            }).catch(err => console.error(err))
         }
-    }, [coverImage])
+    }, [coverImage, book.coverImageName])
 
     return (
         <>

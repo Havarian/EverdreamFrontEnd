@@ -2,24 +2,37 @@ import config from "../../ConfigData.json"
 import axios from "axios";
 
 const saveBook = async (book) => {
-    return await axios.post(config.API_URL_CONTENT_SAVE_BOOK, book, {})
+    return await axios.post(config.API_URL + "/api/content/book/saveBook", book, {})
         .then(res => {return res})
 }
 
-const fetchBooksInCreation = async () => {
-    return await axios.get(config.API_URL_CONTENT_BOOKS_IN_CREATION, {})
+const deleteBook = async (bookId) => {
+    return await axios.delete(config.API_URL + `/api/content/book/${bookId}`, {})
         .then(res => {return res})
 }
 
-const fetchPublishedBooks = async () => {
-    return await axios.get(config.API_URL_CONTENT_PUBLISHED_BOOKS, {})
+const addAuthorToBook = async (bookId, authorId, type) => {
+    console.log([bookId, authorId, type])
+    let formData = new FormData()
+    formData.append("bookId", bookId)
+    formData.append("authorId", authorId)
+    formData.append("type", type)
+
+    return await axios.post(config.API_URL + "/api/content/book/addAuthor", formData, {}).then(res => {return res})
+}
+
+const removeAuthorFromBook = async (bookId, authorId, type) => {
+    return await axios.delete(config.API_URL + `/api/content/book/${bookId}/${authorId}/${type}`,{})
         .then(res => {return res})
 }
+
+
 
 const BookService = {
     saveBook,
-    fetchBooksInCreation,
-    fetchPublishedBooks
+    deleteBook,
+    addAuthorToBook,
+    removeAuthorFromBook
 }
 
 export default BookService;

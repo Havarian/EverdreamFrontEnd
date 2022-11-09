@@ -1,32 +1,35 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import BookService from "../../../services/content/BookService";
+import ContentService from "../../../services/content/ContentService";
 
 export const fetchPublishedBooks = createAsyncThunk("content/published",
     async (arg , ThunkApi) => {
         try {
-            return await BookService.fetchPublishedBooks()
-                .then(res => {return res})
+            return await ContentService.fetchPublishedBooks()
+                .then(res => {return res.data})
         } catch (e) {
             console.log(e)
         }
     })
 
 const initialState = {
-    publishedDownloaded: false,
+    bookList: [],
+    status: "",
 }
 
 const BooksPublishedSlice = createSlice({
     name: "published",
     initialState: initialState,
-    reducers: {
-        setPublishedDownloaded: (state, action) => {
-            state.publishedDownloaded = action.payload
-        }
-    },
     extraReducers: {
-        [fetchPublishedBooks.fulfilled]: (state, action) => {state.published = action.payload},
-        [fetchPublishedBooks.rejected]: state => {state.published = initialState}
+        [fetchPublishedBooks.fulfilled]: (state, action) => {
+            state.status = "fulfilled"
+            state.bookList = action.payload},
+        [fetchPublishedBooks.pending]: (state) => {
+            state.status = "loading"
+        },
+        [fetchPublishedBooks.rejected]: state => {
+            state.status = "failed"
+        }
     }
 })
-export const {setPublishedDownloaded} = BooksPublishedSlice.actions
+
 export default BooksPublishedSlice.reducer;

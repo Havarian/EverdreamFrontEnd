@@ -4,10 +4,10 @@ const appTheme = createTheme({
 
     palette:{
         primary:{
-            main: '#ffffff'
+            main: '#688ab6'
         },
         secondary: {
-            main:'#262626'
+            main:'#dcdcdc'
         }
     },
     shape: {

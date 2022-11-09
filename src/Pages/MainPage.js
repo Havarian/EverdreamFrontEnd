@@ -2,10 +2,9 @@ import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
 import AuthService from "../services/authentication/AuthService";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchPublishedBooks, setPublishedDownloaded} from "../redux/slices/content/BooksPublishedSlice";
+import {fetchPublishedBooks} from "../redux/slices/content/BooksPublishedSlice";
 import Billboard from "../components/Billboard/Billboard";
 import Slider from "../components/Slider/Slider";
-import {SliderWrapper} from "./styles/Pages";
 import ExpandedCard from "../components/BookCards/ExpandedCard/ExpandedCard";
 import Typography from "@mui/material/Typography";
 import image from "../files/img/1.jpg"
@@ -19,20 +18,20 @@ export default function MainPage() {
     const currentUser = AuthService.getCurrentUser()
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const isDownloaded = useSelector(state => state.content.published.publishedDownloaded);
+    const isDownloaded = useSelector(state => state.content.published.status);
+    const publishedBooks = useSelector(state => state.content.published.bookList)
 
     useEffect(() => {
         if (!currentUser) {
             navigate("/login")}
-        if (isDownloaded === false) {
+        if (isDownloaded === "") {
             try {
                 dispatch(fetchPublishedBooks())
-                // dispatch(setPublishedDownloaded(true))
             } catch (error) {
-                console.log(error)
+                console.error(error)
             }
         }
-    },[navigate, currentUser, dispatch, isDownloaded])
+    },[navigate, currentUser, dispatch, isDownloaded, publishedBooks])
 
     const book = {
         title: "My Colorfull Story",

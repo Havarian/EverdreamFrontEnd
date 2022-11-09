@@ -8,7 +8,6 @@ import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import {useDispatch} from "react-redux";
 import {setBookInEdition} from "../../redux/slices/content/BookEditionSlice";
 import {SetIsCreatorOpen} from "../../redux/slices/appState/creatorSlice";
-import FileService from "../../services/content/FileService";
 
 const style = {
     margin: "5px 5px 5px 5px",
