@@ -24,7 +24,7 @@ import {
     setTitle
 } from "../../redux/slices/content/BookEditionSlice";
 import fileService from "../../services/content/FileService";
-import AuthorManager from "../Author/AuthorManager";
+import AuthorManager from "../AuthorManager/AuthorManager";
 import PageManager from "./PageManager/PageManager";
 import Box from "@mui/material/Box";
 

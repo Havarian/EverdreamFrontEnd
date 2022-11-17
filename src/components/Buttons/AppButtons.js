@@ -11,6 +11,8 @@ import {SetIsCreatorOpen} from "../../redux/slices/appState/creatorSlice";
 
 const style = {
     margin: "5px 5px 5px 5px",
+    color: "white",
+    borderColor: "white",
 }
 
 export const PlayButton = (props) => {

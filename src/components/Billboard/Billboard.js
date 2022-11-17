@@ -34,7 +34,7 @@ const Billboard = ({book}, ...restProps) => {
                 console.error(err)
             })
         }
-    }, [coverImageName])
+    }, [  coverImageName])
 
     return (
         <BillboardContainer image={coverImage}>

@@ -14,10 +14,10 @@ const BookEditor = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [open, setOpen] = useState(false)
-    const [isChanged, setIstChanged] = useState(false)
+    const [isModified, setIsModified] = useState(false)
 
     const handleCloseEditor = () => {
-        if (isChanged) {
+        if (isModified) {
             setOpen(true)
         } else {
             dispatch(DisplayNavbar(true))
@@ -28,7 +28,7 @@ const BookEditor = () => {
     return (
         <EditorContainer>
 
-            <CoverEditor></CoverEditor>
+            <CoverEditor isModified={isModified} setIsModified={setIsModified}/>
 
             <Button size={"small"}
                     sx={{position: "absolute", top: "1%", right: "1%"}}
@@ -37,7 +37,7 @@ const BookEditor = () => {
                 <CloseOutlined/>
             </Button>
             <Box>
-                <ConfirmCloseEditor open={open} setOpen={setOpen}/>
+                <ConfirmCloseEditor open={open} setOpen={setOpen} setIsModified={setIsModified}/>
             </Box>
         </EditorContainer>
     )

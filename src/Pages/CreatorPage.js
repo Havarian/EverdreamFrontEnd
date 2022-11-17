@@ -32,8 +32,6 @@ const CreatorPage = () => {
     const handleOpen = () => {
         dispatch(DisplayNavbar(false))
         navigate("/bookEditor")
-        // dispatch(SetIsCreatorOpen(true))
-        // dispatch(saveBook())
     }
     const handleClose = () => {
         dispatch(SetIsCreatorOpen(false))
@@ -47,7 +45,6 @@ const CreatorPage = () => {
                              fontSize={"18px"} style={{margin: "10px 0 10px 50px", color: "whitesmoke"}}>
                 W trakcie tworzenia</Typography>
             {booksInCreation && <Slider books={booksInCreation} type={"inCreation"}/>}
-
             <Typography variant={"button"}
                         fontSize={"18px"} style={{margin: "10px 0 10px 50px", color: "whitesmoke"}}>
                 Oczekujące na publikację</Typography>
@@ -57,11 +54,6 @@ const CreatorPage = () => {
                 sx={{position: "absolute", bottom: "2vh", right: "2vw"}}
                     onClick={handleOpen}
             >NOWA KSIĄŻKA</Button>
-            {/*<Modal open={open}>*/}
-            {/*    <Box width={"100vw"} height={"100vh"}>*/}
-            {/*        <Creator closeCreatorModal={handleClose}/>*/}
-            {/*    </Box>*/}
-            {/*</Modal>*/}
         </Wrapper>
     )
 }
