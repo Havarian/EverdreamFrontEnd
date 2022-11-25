@@ -1,25 +1,24 @@
 import styled from "styled-components/macro"
 import ArrowBackIosOutlinedIcon from '@mui/icons-material/ArrowBackIosOutlined';
 
+
 export const StyledSliderItem = styled.div`
   width: 300px;
   height: 168px;
-  background-image: url("${({image}) => image}");
-  background-size: cover;
-  background-position: center;
-   //flex: 0 0 20vw;
   text-align: center;
   transition: ease-in-out;
   transition-duration: 400ms;
   position: relative;
+  border-radius: 10px;
   @media (max-width: 900px){
     width: 200px;
     height: 120px;
-   }
-  //@media (max-width: 600px){
-  //  width: 120px;
-  //  height: 80px;
-  //}
+  }
+    & img {
+     width: 100%;
+     height: 100%;
+      border-radius: 10px;
+    }
 `
 
 export const ItemButtonContainer = styled.div`
@@ -53,6 +52,7 @@ export const SliderContainer = styled.div`
   gap: 8px;
   display: flex;
   padding: 0 0 0 0.6vw;
+  transition: ease-in-out 400ms;
   transform: translateX(0);
   &:hover ${StyledSliderItem}{
     transform: translateX(-25%);

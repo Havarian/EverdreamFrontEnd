@@ -2,13 +2,22 @@ import {ArrowButton, SliderArrow, SliderContainer, SliderWrapper} from "./styles
 import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import SliderItem from "./SliderItem";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import useSlide from "../hooks/useSlide";
 
 const Slider = ({books, type}, ...restProps) => {
 
     const [containerWidth, setContainerWidth] = useState(0)
-    const [slideCount, setSlideCount] = useState(0)
+    const [itemWidth, setItemWidth] = useState(0)
     const [totalSlides, setTotalSlides] = useState(0)
-    const [translateX, setTranslateX] = useState(0)
+    const containerRef = useRef()
+
+    const {
+        handleSlideLeft,
+        handleSlideRight,
+        slideProps,
+        hasNext,
+        hasPrev
+    } = useSlide(containerWidth, itemWidth, totalSlides, )
 
     const onResize = (event) => {
         setContainerWidth(window.innerWidth)
@@ -23,25 +32,21 @@ const Slider = ({books, type}, ...restProps) => {
         }
     }, [containerWidth, books, window])
 
-    const handleSlide = () => {
-        console.log(containerWidth, totalSlides)
-    }
-
     return (
         <SliderWrapper>
-            <ArrowButton onClick={handleSlide}>
+            {hasPrev && <ArrowButton onClick={handleSlideLeft}>
                 <ArrowForwardIosIcon style={{fontSize: "50px", color: "white", transform: "rotate(180deg)"}}/>
-            </ArrowButton>
-            <SliderContainer>
+            </ArrowButton>}
+            <SliderContainer ref={containerRef} {...slideProps}>
                 {
                     books?.map((book) => (
-                        <SliderItem key={book.id} book={book} type={type}/>
+                        <SliderItem key={book.id} book={book} type={type} setItemWidth={setItemWidth}/>
                     ))
                 }
             </SliderContainer>
-            <ArrowButton style={{right: 0}}>
+            {hasNext && <ArrowButton style={{right: 0}} onClick={handleSlideRight}>
                 <ArrowForwardIosIcon style={{fontSize: "50px", color: "white"}}/>
-            </ArrowButton>
+            </ArrowButton>}
         </SliderWrapper>
     )
 }

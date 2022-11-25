@@ -14,6 +14,10 @@ import {setCoverImageName, setDescription, setIsSaved, setTitle} from "../../red
 import AppButton from "../Buttons/AppButton";
 import {Modal} from "@mui/material";
 import Box from "@mui/material/Box";
+import AuthorsList from "../Author/AuthorsList";
+import Button from "@mui/material/Button";
+import {SetAuthorManagerOpen} from "../../redux/slices/appState/creatorSlice";
+import AuthorEditor from "./AuthorEditor";
 
 const CoverEditor = ({isModified, setIsModified}) => {
 
@@ -21,10 +25,13 @@ const CoverEditor = ({isModified, setIsModified}) => {
     const writers = authors.filter(author => author.type.includes("WRITER"))
     const illustrators = authors.filter(author => author.type.includes("ILLUSTRATOR"))
 
-
     const dispatch = useDispatch()
     const [selectedFile, setSelectedFile] = useState()
     const [previewImage, setPreviewImage] = useState(null)
+
+    const openDialog = () => {
+        dispatch(SetAuthorManagerOpen(true))
+    }
 
     const handleAddPicture = (event) => {
         event.preventDefault()
@@ -35,6 +42,14 @@ const CoverEditor = ({isModified, setIsModified}) => {
                 dispatch(setCoverImageName(res))
                 setIsModified(true)})
             .catch(err => console.error(err))
+    }
+
+    const renderAuthorName = (author) => {
+        return (
+            <StyledText key={author.id} fontSize={"14px"}>{author.name} {author.surname}
+                <AppButton variant={"remove"} iconSize={"12px"} padding={"0 10px"}/>
+            </StyledText>
+        )
     }
 
     useEffect(() => {
@@ -93,15 +108,16 @@ const CoverEditor = ({isModified, setIsModified}) => {
                             setIsModified(true)
                         }}
                         />
-                    <StyledText>Tekst: </StyledText>
-                    <StyledText>Grafika: </StyledText>
+                    <StyledText>Autorzy
+                        <AppButton variant={"add"} padding={"0px 10px"} iconSize={"20px"} onClick={openDialog}/>
+                    </StyledText>
+                    <StyledText fontSize={"12px"}>Tekst:</StyledText>
+                    {writers?.map(writer => renderAuthorName(writer))}
+                    <StyledText fontSize={"12px"}>Grafika:</StyledText>
+                    {illustrators?.map(illustrator => renderAuthorName(illustrator))}
                 </CoverEditorFormContainer>
             </CoverEditorBackground>
-            <Box>
-                {/*<Modal open={}>*/}
-
-                {/*</Modal>*/}
-            </Box>
+            <AuthorEditor/>
         </CoverEditorContainer>
     )
 }

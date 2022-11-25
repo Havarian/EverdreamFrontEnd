@@ -97,6 +97,8 @@ export const StyledText = styled.div`
   width: 100%;
   color: whitesmoke;
   font-family: Roboto,Calibri, sans-serif;
-  font-size: 18px;
+  font-size: ${({fontSize}) => fontSize ? fontSize : "18px"};
   margin: 5px;
+  display: flex;
+  align-items: center;
 `

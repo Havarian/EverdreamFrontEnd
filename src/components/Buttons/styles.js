@@ -1,7 +1,8 @@
-import styled from "styled-components/macro"
+import styled, {css} from "styled-components/macro"
 
 export const StyledButton = styled.div`
-  padding: 6px 16px;
+  //padding: 6px 16px;
+  padding: ${({padding}) => padding ? padding : "6px 16px"};
   box-sizing: border-box;
   margin: 8px;
   background: transparent;

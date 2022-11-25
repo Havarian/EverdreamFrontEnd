@@ -6,7 +6,7 @@ const initialState = {
     isPageManagerOpen: false
 }
 
-const CreatorSlice = createSlice({
+const creatorSlice = createSlice({
     name: "creator",
     initialState: initialState,
     reducers: {
@@ -22,5 +22,5 @@ const CreatorSlice = createSlice({
     }
 })
 
-export const {SetIsCreatorOpen, SetAuthorManagerOpen, SetPageManagerOpen} = CreatorSlice.actions
-export default CreatorSlice.reducer
+export const {SetIsCreatorOpen, SetAuthorManagerOpen, SetPageManagerOpen} = creatorSlice.actions
+export default creatorSlice.reducer
