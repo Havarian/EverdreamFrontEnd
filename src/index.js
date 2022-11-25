@@ -29,7 +29,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <Provider store={store}>
         <ThemeProvider theme={appTheme}>
-            <App />
+            <App style={{maxWidth: "1500px"}}/>
         </ThemeProvider>
     </Provider>
 );

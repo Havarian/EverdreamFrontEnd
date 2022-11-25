@@ -3,25 +3,23 @@ import {
     CoverEditorButtonArea,
     CoverEditorContainer,
     CoverEditorFormContainer,
-    StyledInput, StyledText,
+    StyledInput,
+    StyledText,
     StyledTextArea
-} from "./styles";
+} from "../styles";
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useLayoutEffect, useState} from "react";
-import altCover from "../../files/img/noImage.jpg"
-import fileService from "../../services/content/FileService";
-import {setCoverImageName, setDescription, setIsSaved, setTitle} from "../../redux/slices/content/BookEditionSlice";
-import AppButton from "../Buttons/AppButton";
-import {Modal} from "@mui/material";
-import Box from "@mui/material/Box";
-import AuthorsList from "../Author/AuthorsList";
+import {useEffect, useState} from "react";
+import altCover from "../../../files/img/noImage.jpg"
+import fileService from "../../../services/content/FileService";
+import {removeAuthor, setCoverImageName, setDescription, setTitle} from "../../../redux/slices/content/BookEditionSlice";
+import AppButton from "../../Buttons/AppButton";
+import {setAuthorManagerOpen} from "../../../redux/slices/appState/creatorSlice";
+import AuthorEditor from "../AuthorEditor/AuthorEditor";
 import Button from "@mui/material/Button";
-import {SetAuthorManagerOpen} from "../../redux/slices/appState/creatorSlice";
-import AuthorEditor from "./AuthorEditor";
 
 const CoverEditor = ({isModified, setIsModified}) => {
 
-    const {title, description, coverImageName, authors} = useSelector(state => state.content.inEdition.book)
+    const {id, title, description, coverImageName, authors} = useSelector(state => state.content.inEdition.book)
     const writers = authors.filter(author => author.type.includes("WRITER"))
     const illustrators = authors.filter(author => author.type.includes("ILLUSTRATOR"))
 
@@ -29,8 +27,11 @@ const CoverEditor = ({isModified, setIsModified}) => {
     const [selectedFile, setSelectedFile] = useState()
     const [previewImage, setPreviewImage] = useState(null)
 
-    const openDialog = () => {
-        dispatch(SetAuthorManagerOpen(true))
+    const openModal = () => {
+        dispatch(setAuthorManagerOpen(true))
+    }
+    const closeModal = () => {
+        dispatch(setAuthorManagerOpen(false))
     }
 
     const handleAddPicture = (event) => {
@@ -44,10 +45,13 @@ const CoverEditor = ({isModified, setIsModified}) => {
             .catch(err => console.error(err))
     }
 
+
     const renderAuthorName = (author) => {
         return (
             <StyledText key={author.id} fontSize={"14px"}>{author.name} {author.surname}
-                <AppButton variant={"remove"} iconSize={"12px"} padding={"0 10px"}/>
+                <AppButton type={"remove"} iconSize={"12px"} padding={"0 10px"} color={"secondary"} onClick={() => {
+                    dispatch(removeAuthor({bookId: id, authorId: author.id, type: author.type}))
+                }}/>
             </StyledText>
         )
     }
@@ -60,8 +64,9 @@ const CoverEditor = ({isModified, setIsModified}) => {
             if (coverImageName === null) {
                 setPreviewImage(altCover)
             } else {
-                setPreviewImage(sessionStorage.getItem(coverImageName))
-                if (previewImage === null) {
+                if (sessionStorage.getItem(coverImageName) !== null) {
+                    setPreviewImage(sessionStorage.getItem(coverImageName))
+                } else {
                     fileService.fetchFile(coverImageName)
                         .then(res => {
                             sessionStorage.setItem(coverImageName, res)
@@ -91,10 +96,13 @@ const CoverEditor = ({isModified, setIsModified}) => {
                             accept="image/*"
                             style={{ display: 'none' }}
                             onChange={handleAddPicture}
-                            id="coverImage"
+                            id={"image"}
                         />
-                        <label htmlFor="coverImage" >
-                            <AppButton variant={"addImage"}/>
+                        <label htmlFor={"image"} >
+                            <AppButton type={"addImage"}
+                                       variant={"outlined"}
+                                       color={"secondary"}
+                                       component={"span"}/>
                         </label>
                     </CoverEditorButtonArea>
                     <StyledTextArea
@@ -109,7 +117,7 @@ const CoverEditor = ({isModified, setIsModified}) => {
                         }}
                         />
                     <StyledText>Autorzy
-                        <AppButton variant={"add"} padding={"0px 10px"} iconSize={"20px"} onClick={openDialog}/>
+                        <AppButton type={"add"} padding={"0px 10px"} iconOnly color={"secondary"} iconSize={"20px"} onClick={openModal}/>
                     </StyledText>
                     <StyledText fontSize={"12px"}>Tekst:</StyledText>
                     {writers?.map(writer => renderAuthorName(writer))}
@@ -117,7 +125,7 @@ const CoverEditor = ({isModified, setIsModified}) => {
                     {illustrators?.map(illustrator => renderAuthorName(illustrator))}
                 </CoverEditorFormContainer>
             </CoverEditorBackground>
-            <AuthorEditor/>
+            <AuthorEditor closeModal={closeModal} setIsModified={setIsModified}/>
         </CoverEditorContainer>
     )
 }

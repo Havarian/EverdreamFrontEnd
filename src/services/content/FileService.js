@@ -18,7 +18,7 @@ const uploadFile = async (file) => {
 
 const FileService = {
     fetchFile,
-    uploadFile
+    uploadFile,
 }
 
 export default FileService

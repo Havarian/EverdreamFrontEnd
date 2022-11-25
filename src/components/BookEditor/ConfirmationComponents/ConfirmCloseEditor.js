@@ -2,8 +2,8 @@ import {Dialog, DialogActions, DialogTitle} from "@mui/material";
 import Button from "@mui/material/Button";
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {DisplayNavbar} from "../../redux/slices/appState/navbarSlice";
-import {saveBook, setBookInEditionInitialState} from "../../redux/slices/content/BookEditionSlice";
+import {DisplayNavbar} from "../../../redux/slices/appState/navbarSlice";
+import {saveBook, setBookInEditionInitialState} from "../../../redux/slices/content/BookEditionSlice";
 
 const ConfirmCloseEditor = ({open, setOpen, setIsModified}, ...restProps) => {
 

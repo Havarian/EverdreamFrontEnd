@@ -7,7 +7,7 @@ import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import {useDispatch} from "react-redux";
 import {setBookInEdition} from "../../redux/slices/content/BookEditionSlice";
-import {SetIsCreatorOpen} from "../../redux/slices/appState/creatorSlice";
+import {setIsCreatorOpen} from "../../redux/slices/appState/creatorSlice";
 
 const style = {
     margin: "5px 5px 5px 5px",
@@ -49,7 +49,7 @@ export const EditButton = ({size, book}, ...restProps) => {
 
     const handleClick = () => {
         dispatch(setBookInEdition(book))
-        dispatch(SetIsCreatorOpen(true))
+        dispatch(setIsCreatorOpen(true))
     }
 
     return (

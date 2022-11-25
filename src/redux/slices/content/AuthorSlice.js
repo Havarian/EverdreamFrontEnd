@@ -2,10 +2,11 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import authorService from "../../../services/content/AuthorService";
 
 export const saveAuthor = createAsyncThunk("content/saveAuthor",
-    async ({author}) => {
+    async (args, {getState}) => {
     try {
-        const json = JSON.stringify(author)
-        return await authorService.saveAuthor(json)
+        const state = getState()
+        console.log(state.content.author.currentAuthor)
+        return await authorService.saveAuthor(state.content.author.currentAuthor)
             .then(res => res.data)
     } catch (error) {
         console.log(error)
@@ -49,28 +50,28 @@ const AuthorSlice = createSlice({
             creatorId: ""}
     },
     reducers: {
-        SetCurrentAuthor: (state, action) => {
+        setCurrentAuthor: (state, action) => {
             state.currentAuthor = action.payload
         },
-        SetName: (state, action) => {
+        setName: (state, action) => {
             state.currentAuthor.name = action.payload
         },
-        SetSurname: (state, action) => {
+        setSurname: (state, action) => {
             state.currentAuthor.surname = action.payload
         },
-        SetEmail: (state, action) => {
+        setEmail: (state, action) => {
             state.currentAuthor.email = action.payload
         },
-        SetDescription: (state, action) => {
+        setDescription: (state, action) => {
             state.currentAuthor.description = action.payload
         },
-        SetProfilePictureName: (state, action) => {
+        setProfilePictureName: (state, action) => {
             state.currentAuthor.profilePictureName = action.payload
         },
-        SetHomepageUrl: (state, action) => {
+        setHomepageUrl: (state, action) => {
             state.currentAuthor.homePageUrl = action.payload
         },
-        ResetCurrentAuthor: (state) => {
+        resetCurrentAuthor: (state) => {
             state.currentAuthor = currentAuthorInitialState
         }
     },
@@ -84,6 +85,6 @@ const AuthorSlice = createSlice({
     }
 })
 
-export const {SetCurrentAuthor, SetName, SetSurname, SetEmail, SetDescription, SetProfilePictureName,
-    SetHomepageUrl, ResetCurrentAuthor} = AuthorSlice.actions
+export const {setCurrentAuthor, setName, setSurname, setEmail, setDescription, setProfilePictureName,
+    setHomepageUrl, resetCurrentAuthor} = AuthorSlice.actions
 export default AuthorSlice.reducer

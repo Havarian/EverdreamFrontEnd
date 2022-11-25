@@ -3,24 +3,37 @@ import {createSlice} from "@reduxjs/toolkit";
 const initialState = {
     isCreatorOpen: false,
     isAuthorManagerOpen: false,
-    isPageManagerOpen: false
+    authorCard: {isOpen: false},
+    newAuthorCard: {isOpen: false},
+    coverEditor: {isOpen: true},
+    pageEditor: {isOpen: false}
 }
 
 const creatorSlice = createSlice({
     name: "creator",
     initialState: initialState,
     reducers: {
-        SetIsCreatorOpen: (state, action) => {
+        setIsCreatorOpen: (state, action) => {
             state.isCreatorOpen = action.payload
         },
-        SetAuthorManagerOpen: (state, action) => {
+        setAuthorManagerOpen: (state, action) => {
             state.isAuthorManagerOpen = action.payload
         },
-        SetPageManagerOpen: (state, action) => {
-            state.isPageManagerOpen = action.payload
+        setAuthorCardOpen: (state, action) => {
+          state.authorCard.isOpen = action.payload
+        },
+        setNewAuthorCardOpen: (state, action) => {
+            state.newAuthorCard.isOpen = action.payload
+        },
+        setCoverEditorOpen: (state, action) => {
+            state.coverEditor.isOpen = action.payload
+        },
+        setPageEditorOpen: (state, action) => {
+            state.pageEditor.isOpen = action.payload
         }
     }
 })
 
-export const {SetIsCreatorOpen, SetAuthorManagerOpen, SetPageManagerOpen} = creatorSlice.actions
+export const {setIsCreatorOpen, setAuthorManagerOpen, setCoverEditorOpen, setPageEditorOpen,
+    setAuthorCardOpen, setNewAuthorCardOpen} = creatorSlice.actions
 export default creatorSlice.reducer

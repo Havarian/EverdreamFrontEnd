@@ -20,7 +20,7 @@ export const addAuthor = createAsyncThunk("content/addAuthor",
 export const removeAuthor = createAsyncThunk("content/removeAuthors",
     async ({bookId, authorId, type}, {dispatch}) => {
             return await bookService.removeAuthorFromBook(bookId, authorId, type)
-                .then(() => {dispatch(removeAuthors({authorId, type}))})
+                .then(() => {dispatch(removeAuthors({id: authorId, type: type}))})
                 .catch(reason => console.error(reason))
     })
 
@@ -68,7 +68,7 @@ const BookEditionSlice = createSlice({
             state.authors.push(action.payload)
         },
         removeAuthors: (state, action) => {
-            state.authors = state.authors.filter(author =>  (author.id !== action.payload.id) &&
+            state.authors = state.authors.filter(author =>  (author.id !== action.payload.authorId) &&
                                                             (author.type !== action.payload.type))
         },
         setInCreation: (state, action) => {

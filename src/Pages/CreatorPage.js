@@ -2,7 +2,7 @@ import Slider from "../components/Slider/Slider";
 import Button from "@mui/material/Button";
 import {styled} from "@mui/system"
 import {useDispatch, useSelector} from "react-redux";
-import {SetIsCreatorOpen} from "../redux/slices/appState/creatorSlice";
+import {setIsCreatorOpen} from "../redux/slices/appState/creatorSlice";
 import Typography from "@mui/material/Typography";
 import {saveBook, setBookInEditionInitialState} from "../redux/slices/content/BookEditionSlice";
 import {useEffect} from "react";
@@ -34,7 +34,7 @@ const CreatorPage = () => {
         navigate("/bookEditor")
     }
     const handleClose = () => {
-        dispatch(SetIsCreatorOpen(false))
+        dispatch(setIsCreatorOpen(false))
         dispatch(saveBook()).then(() => dispatch(setBookInEditionInitialState()))
     }
 
@@ -44,7 +44,7 @@ const CreatorPage = () => {
             <Typography variant={"button"}
                              fontSize={"18px"} style={{margin: "10px 0 10px 50px", color: "whitesmoke"}}>
                 W trakcie tworzenia</Typography>
-            {booksInCreation && <Slider books={booksInCreation} type={"inCreation"}/>}
+            {booksInCreation && <Slider books={booksInCreation} category={"inCreation"}/>}
             <Typography variant={"button"}
                         fontSize={"18px"} style={{margin: "10px 0 10px 50px", color: "whitesmoke"}}>
                 Oczekujące na publikację</Typography>
