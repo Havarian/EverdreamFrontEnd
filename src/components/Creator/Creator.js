@@ -15,9 +15,16 @@ import {Divider, Modal} from "@mui/material";
 import CoverCreator from "./CoverCreator";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import {removeAuthors, setCoverImageName, setDescription, setTitle} from "../../redux/slices/content/BookEditionSlice";
+import {
+    removeAuthor,
+    removeAuthors,
+    saveBook,
+    setCoverImageName,
+    setDescription,
+    setTitle
+} from "../../redux/slices/content/BookEditionSlice";
 import fileService from "../../services/content/FileService";
-import AuthorManager from "../Author/AuthorManager";
+import AuthorManager from "../AuthorManager/AuthorManager";
 import PageManager from "./PageManager/PageManager";
 import Box from "@mui/material/Box";
 
@@ -25,13 +32,12 @@ const Creator = (props) => {
 
     const dispatch = useDispatch();
     const [authorManager, setAuthorManager] = useState(false)
-    const [image, setImage] = useState()
     const [open, setOpen] = useState(false)
 
     const book = useSelector(state => state.content.inEdition.book)
 
-    const writers = book.authors.filter(author => author.type.includes("writer"))
-    const illustrators = book.authors.filter(author => author.type.includes("illustrator"))
+    const writers = book.authors.filter(author => author.type.includes("WRITER"))
+    const illustrators = book.authors.filter(author => author.type.includes("ILLUSTRATOR"))
 
     const openPageManager = () => {
         setOpen(true)
@@ -52,12 +58,11 @@ const Creator = (props) => {
         event.preventDefault()
         let img = event.target.files[0]
         fileService.uploadFile(img)
-            .then(res => {dispatch(setCoverImageName(res))
-                            setImage(URL.createObjectURL(img))})
+            .then(res => {dispatch(setCoverImageName(res))})
     }
 
     useEffect(() => {
-    },[dispatch, writers, illustrators])
+    },[dispatch, writers, illustrators, book])
 
     return (
         <CreatorWrapper>
@@ -65,9 +70,9 @@ const Creator = (props) => {
                 <TextField  fullWidth
                             size={"small"}
                             color={"secondary"}
-                            label={"Tytuł Książki"}
                             name={"title"}
-                            placeholder={`${book.title ? book.title: "Tytuł Ksiażki"}`}
+                            value={`${book.title ? book.title : ""}`}
+                            placeholder={`${book.title ? "" : "Tytuł Ksiażki"}`}
                             margin={"dense"}
                             onChange={(title) => dispatch(setTitle(title.target.value))}/>
                 <TextField  fullWidth
@@ -76,8 +81,8 @@ const Creator = (props) => {
                             size={"small"}
                             color={"secondary"}
                             name={"description"}
-                            label={"Opis Książki"}
-                            placeholder={`${book.description ? book.description: "Tytuł Ksiażki"}`}
+                            value={`${book.description ? book.description : ""}`}
+                            placeholder={`${book.description ? "" : "Opis Książki"}`}
                             margin={"dense"}
                             onChange={(desc) => dispatch(setDescription(desc.target.value))}/>
                 <Divider style={{margin: "10px"}}/>
@@ -109,8 +114,9 @@ const Creator = (props) => {
                     </Typography>
                 <Divider style={{margin: "10px"}}/>
                     <Typography style={{marginLeft: "10px"}}>Tekst:</Typography>
+
                 {writers.map(writer =>
-                    <AuthorNameContainer>
+                    <AuthorNameContainer key={writer.id}>
                         <AuthorName>
                             {writer.name} {writer.surname}
                         </AuthorName>
@@ -118,9 +124,10 @@ const Creator = (props) => {
                                 variant={"outlined"}
                                 size={"small"}
                                 sx={{position: "absolute", right: 10}}
-                                onClick={() => dispatch(removeAuthors(writer.id))}
+                                onClick={() => dispatch(removeAuthor({bookId: book.id, authorId: writer.id, type: "WRITER"}))}
                         >Usuń</Button>
                     </AuthorNameContainer>)}
+
                     <Divider style={{margin: "10px"}}/>
                     <Typography style={{marginLeft: "10px"}}>Grafika:</Typography>
                 {illustrators.map(illustrator =>
@@ -132,7 +139,7 @@ const Creator = (props) => {
                                 variant={"outlined"}
                                 size={"small"}
                                 sx={{position: "absolute", right: 10}}
-                                onClick={() => dispatch(removeAuthors(illustrator.id))}
+                                onClick={() => dispatch(removeAuthor({bookId: book.id, authorId: illustrator.id, type: "ILLUSTRATOR"}))}
                         >Usuń</Button>
                     </AuthorNameContainer>)}
                 <Button variant={"outlined"}
@@ -148,7 +155,7 @@ const Creator = (props) => {
             </SidePanel>
 
             <MainPanel>
-                {!authorManager && <CoverCreator book={book} coverImage={image}></CoverCreator>}
+                {!authorManager && <CoverCreator book={book}></CoverCreator>}
                 {authorManager && <AuthorManager style={{height: 100}}/>}
             </MainPanel>
             <StyledCloseOutlined fontSize={"large"} onClick={props.closeCreatorModal}/>

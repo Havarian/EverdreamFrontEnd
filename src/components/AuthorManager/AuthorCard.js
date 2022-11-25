@@ -9,21 +9,22 @@ import Typography from '@mui/material/Typography';
 import Button from "@mui/material/Button";
 import fileService from "../../services/content/FileService";
 import {Divider, FormControl, InputLabel, Select, Skeleton} from "@mui/material";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import MenuItem from "@mui/material/MenuItem";
-import {addAuthors} from "../../redux/slices/content/BookEditionSlice";
+import {addAuthor, addAuthors} from "../../redux/slices/content/BookEditionSlice";
 
-export default function AuthorCard({currentAuthor}, ...restProps) {
+export default function AuthorCard({currentAuthor, currentBook}, ...restProps) {
 
-    const {profilePictureName, name, surname, email, description, homePageUrl} = currentAuthor
+    const {id, profilePictureName, name, surname, email, description, homePageUrl} = currentAuthor
+    const bookId = useSelector(state => state.content.inEdition.book.id)
     const [image, setImage] = useState(null)
     const [authorType, setAuthorType] = useState("")
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if (sessionStorage.getItem(profilePictureName)) {
-            setImage(sessionStorage.getItem(profilePictureName))
-        } else {
+        setImage(sessionStorage.getItem(profilePictureName))
+
+        if (image == null) {
             fileService.fetchFile(profilePictureName).then(res => {
                 sessionStorage.setItem(profilePictureName, res)
                 setImage(sessionStorage.getItem(profilePictureName))
@@ -32,9 +33,8 @@ export default function AuthorCard({currentAuthor}, ...restProps) {
     },[image, currentAuthor, profilePictureName])
 
     const handleAdd = () => {
-        let author = JSON.parse(JSON.stringify(currentAuthor))
-        author.type = authorType
-        dispatch(addAuthors(author))
+        console.log([bookId, id, authorType])
+        dispatch(addAuthor([bookId, id, authorType]))
     }
 
     const handleChangeType = (event) => {
@@ -80,8 +80,8 @@ export default function AuthorCard({currentAuthor}, ...restProps) {
                                 label="Typ Autora"
                                 onChange={handleChangeType}
                             >
-                                <MenuItem value={"writer"}>Autor Tekstu</MenuItem>
-                                <MenuItem value={"illustrator"}>Autor Ilustracji</MenuItem>
+                                <MenuItem value={"WRITER"}>Autor Tekstu</MenuItem>
+                                <MenuItem value={"ILLUSTRATOR"}>Autor Ilustracji</MenuItem>
                             </Select>
                         </FormControl>
                         <Button variant={"outlined"}

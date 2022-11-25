@@ -1,21 +1,24 @@
 import styled from "styled-components/macro"
-import SliderItem from "./SliderItem";
+import ArrowBackIosOutlinedIcon from '@mui/icons-material/ArrowBackIosOutlined';
+
 
 export const StyledSliderItem = styled.div`
-   height: 11.25vw;
-  background-image: url("${({image}) => image}");
-  background-size: cover;
-  background-position: center;
-   flex: 0 0 20vw;
-   text-align: center;
-   margin: 0 0.2vw;
-   transition: ease-in-out;
-   transition-duration: 400ms;
+  width: 300px;
+  height: 168px;
+  text-align: center;
+  transition: ease-in-out;
+  transition-duration: 400ms;
   position: relative;
-   @media (max-width: 600px){
-     flex: 0 0 32vw;
-     height: 18vw;
-   }
+  border-radius: 10px;
+  @media (max-width: 900px){
+    width: 200px;
+    height: 120px;
+  }
+    & img {
+     width: 100%;
+     height: 100%;
+      border-radius: 10px;
+    }
 `
 
 export const ItemButtonContainer = styled.div`
@@ -25,13 +28,35 @@ export const ItemButtonContainer = styled.div`
     display: none;
 `
 
+export const ArrowButton = styled.div`
+  height: 100%;
+  width: 50px;
+  background-color: rgba(0,0,0,.5);
+  position:absolute;
+  display: flex;
+  vertical-align: center;
+  align-items: center;
+  box-sizing: border-box;
+  cursor: pointer;
+  z-index: 10;
+`
+
+export const SliderWrapper = styled.div`
+  display: flex;
+  box-sizing: border-box;
+  position: relative;
+`
 
 export const SliderContainer = styled.div`
+  position: relative;
+  gap: 8px;
   display: flex;
-  padding: 0.3vw 0.6vw 1vw 0.6vw;
-  // &:hover ${StyledSliderItem}{
-  //   transform: translateX(-25%);
-  // }
+  padding: 0 0 0 0.6vw;
+  transition: ease-in-out 400ms;
+  transform: translateX(0);
+  &:hover ${StyledSliderItem}{
+    transform: translateX(-25%);
+  }
   
     ${StyledSliderItem}:first-child {
       :hover {
@@ -39,9 +64,9 @@ export const SliderContainer = styled.div`
         border: whitesmoke 0.02vw solid;
         z-index: 5;
       }
-      // :hover ~${StyledSliderItem} {
-      //   transform: translateX(47%);
-      // }
+      :hover ~${StyledSliderItem} {
+        transform: translateX(47%);
+      }
     }
 
   ${StyledSliderItem}:last-child {
@@ -60,9 +85,9 @@ export const SliderContainer = styled.div`
           display: block;
         }
       }
-      // :hover ~${StyledSliderItem} {
-      //   transform: translateX(25%);
-      // }
+      :hover ~${StyledSliderItem} {
+        transform: translateX(25%);
+      }
     }
 `
 

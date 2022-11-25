@@ -1,6 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
+    displayNavbar: true,
     showMainPage: false,
     showCreatorPanel: false,
     showAdminPanel: false,
@@ -11,8 +12,8 @@ const NavbarSlice = createSlice({
     name: "navbar",
     initialState: initialState,
     reducers: {
-        setNavbar: (state, action) => {
-            state.navbar = action.payload},
+        DisplayNavbar: (state,action) => {
+          state.displayNavbar = action.payload},
         ShowMainPage: (state, action) => {
             state.showMainPage = action.payload},
         ShowCreatorPanel: (state,action) => {
@@ -24,5 +25,5 @@ const NavbarSlice = createSlice({
     }
 })
 
-export const { ShowAdminPanel, ShowCreatorPanel, ShowMainPage, ShowSettings} = NavbarSlice.actions
+export const { DisplayNavbar, ShowAdminPanel, ShowCreatorPanel, ShowMainPage, ShowSettings} = NavbarSlice.actions
 export default NavbarSlice.reducer

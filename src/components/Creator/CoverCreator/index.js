@@ -10,7 +10,7 @@ const CoverPreview = (props) => {
         <>
             <CoverPreviewContainer>
                 <BillboardPreviewContainer>
-                    <Billboard book={book} image={props.coverImage}/>
+                    <Billboard book={book}/>
                 </BillboardPreviewContainer>
             </CoverPreviewContainer>
         </>

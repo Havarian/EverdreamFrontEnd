@@ -3,16 +3,25 @@ import bookService from "../../../services/content/BookService";
 
 
 export const saveBook = createAsyncThunk("content/saveBook",
-    async (args, {dispatch, getState}) => {
-        try {
+    async (args, {getState}) => {
             const state = getState()
             return await bookService.saveBook(state.content.inEdition.book)
-                .then(res => {
-                    dispatch(setBookInEdition(res.data))
-                })
-        } catch (error) {
-            console.log(error)
-        }
+                .then(res => {return res.data})
+                .catch(reason => console.error(reason))
+    })
+
+export const addAuthor = createAsyncThunk("content/addAuthor",
+    async ([bookId, authorId, type], {dispatch}) => {
+            return await bookService.addAuthorToBook(bookId, authorId, type)
+                .then(res => {dispatch(addAuthors(res.data))})
+                .catch(reason => console.error(reason))
+    })
+
+export const removeAuthor = createAsyncThunk("content/removeAuthors",
+    async ({bookId, authorId, type}, {dispatch}) => {
+            return await bookService.removeAuthorFromBook(bookId, authorId, type)
+                .then(() => {dispatch(removeAuthors({authorId, type}))})
+                .catch(reason => console.error(reason))
     })
 
 const initialState = {
@@ -30,6 +39,9 @@ const BookEditionSlice = createSlice({
     name: "book",
     initialState: initialState,
     reducers: {
+        setBookInEditionInitialState: (state) => {
+            return initialState
+        },
         setBookInEdition: (state, action) => {
             return action.payload
         },
@@ -56,7 +68,8 @@ const BookEditionSlice = createSlice({
             state.authors.push(action.payload)
         },
         removeAuthors: (state, action) => {
-            state.authors = state.book.authors.filter(author => author.id !== action.payload)
+            state.authors = state.authors.filter(author =>  (author.id !== action.payload.id) &&
+                                                            (author.type !== action.payload.type))
         },
         setInCreation: (state, action) => {
             state.inCreation = action.payload
@@ -64,13 +77,16 @@ const BookEditionSlice = createSlice({
     },
 
     extraReducers: {
-        [saveBook.fulfilled]: (state, action) => state.book = action.payload,
-        [saveBook.rejected]: state => state.book = initialState,
+        [saveBook.fulfilled]: (state, action) => {return action.payload},
+        [saveBook.rejected]: state => {return initialState},
+
+        [addAuthor.fulfilled]: (state, action) => {},
+        [removeAuthor.fulfilled]: (state, action) => {}
     }
 })
 
 
 
-export const {addAuthors, removeAuthors, setCoverImageName, setDescription, setNewBook, addPageToBook,
-    setTitle, setBookInEdition, setInCreation, decrementPageNo, incrementPagesNo} = BookEditionSlice.actions
+export const {addAuthors, removeAuthors, setCoverImageName, setDescription, addPage, setBookInEditionInitialState,
+    setTitle, setBookInEdition, setInCreation} = BookEditionSlice.actions
 export default BookEditionSlice.reducer
