@@ -2,7 +2,8 @@ import axios from "axios";
 import config from "../../ConfigData.json"
 
 const saveAuthor = async (author) => {
-    return await axios.post(config.API_URL + "/api/content/author/saveAuthor", author, {headers: {"Content-Type": "application/json"}})
+    console.log("service", author)
+    return await axios.post(config.API_URL + "/api/content/author/saveAuthor", author)
         .then(res => {return res})
 }
 

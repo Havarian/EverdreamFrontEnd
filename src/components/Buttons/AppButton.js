@@ -7,37 +7,48 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import RemoveOutlinedIcon from '@mui/icons-material/RemoveOutlined';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import CloseIcon from '@mui/icons-material/Close';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import Button from "@mui/material/Button";
+import PostAddIcon from '@mui/icons-material/PostAdd';
 
-const AppButton = ({variant, onClick, iconSize, ...restProps}) => {
+const AppButton = ({type, onClick, iconSize, iconOnly,children, ...restProps}) => {
 
     const renderButton = () => {
-        switch (variant) {
+        switch (type) {
             case ("play") : return <><PlayCircleOutlineIcon sx={{fontSize: iconSize}}/>
-                <ButtonText>ODTWÓRZ</ButtonText></>;
+                {!iconOnly && <ButtonText>ODTWÓRZ</ButtonText>}</>;
             case ("addToFav") : return <><AddIcon sx={{fontSize: iconSize}}/>
-                <ButtonText>ULUBIONE</ButtonText></>;
+                {!iconOnly && <ButtonText>ULUBIONE</ButtonText>}</>;
             case ("more") : return <><ExpandMoreIcon sx={{fontSize: iconSize}}/>
-                <ButtonText>WIĘCEJ</ButtonText></>;
+                {!iconOnly && <ButtonText>WIĘCEJ</ButtonText>}</>;
             case ("delete") : return <><DeleteForeverOutlinedIcon sx={{fontSize: iconSize}}/>
-                <ButtonText>USUŃ</ButtonText></>
+                {!iconOnly && <ButtonText>USUŃ</ButtonText>}</>
             case ("edit") : return <><EditOutlinedIcon sx={{fontSize: iconSize}}/>
-                <ButtonText>EDYTUJ</ButtonText></>
+                {!iconOnly && <ButtonText>EDYTUJ</ButtonText>}</>
             case ("save") : return <><SaveAltIcon sx={{fontSize: iconSize}}/>
-                <ButtonText>ZAPISZ</ButtonText></>
+                {!iconOnly && <ButtonText>ZAPISZ</ButtonText>}</>
             case ("addImage") : return <><AddPhotoAlternateIcon sx={{fontSize: iconSize}}/>
-                <ButtonText>DODAJ GRAFIKĘ OKŁADKI</ButtonText></>
-            case ("addAuthor") : return <><AddIcon sx={{fontSize: iconSize}}/>
-                <ButtonText>NOWY AUTOR</ButtonText></>
+                {!iconOnly && <ButtonText>DODAJ GRAFIKĘ OKŁADKI</ButtonText>}</>
+            case ("addAuthor") : return <><PersonAddIcon sx={{fontSize: iconSize}}/>
+                {!iconOnly && <ButtonText>NOWY AUTOR</ButtonText>}</>
+            case ("addPage") : return <><PostAddIcon sx={{fontSize: iconSize}}/>
+                {!iconOnly && <ButtonText>DODAJ STRONĘ</ButtonText>}</>
+            case ("close") : return <><CloseIcon sx={{fontSize: iconSize}}/>
+                {!iconOnly && <ButtonText>ZAMKNIJ</ButtonText>}</>
+            case ("back") : return <><KeyboardBackspaceIcon sx={{fontSize: iconSize}}/>
+                {!iconOnly && <ButtonText>WSTECZ</ButtonText>}</>
             case("add") : return <><AddIcon sx={{fontSize: iconSize}}/></>
             case("remove") : return <><RemoveOutlinedIcon sx={{fontSize: iconSize}}/></>
+            default: return <>{children}</>
         }
     }
 
     return (
-
-        <StyledButton onClick={onClick} {...restProps}>
+        <Button onClick={onClick} {...restProps}>
             {renderButton()}
-        </StyledButton>
+        </Button>
     )
 }
 

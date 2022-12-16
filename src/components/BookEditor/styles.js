@@ -2,8 +2,8 @@ import styled from "styled-components/macro"
 
 
 export const EditorContainer = styled.div`
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 `
 
 export const CoverEditorContainer = styled.div`
@@ -101,4 +101,31 @@ export const StyledText = styled.div`
   margin: 5px;
   display: flex;
   align-items: center;
+`
+
+export const PagesButton = styled.div`
+  height: 5%;
+  padding: 10px;
+  background-color: rgba(15, 15, 80, .5);
+  border: 1px whitesmoke solid;
+  border-radius: 5px 5px 0 0;
+  cursor: pointer;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  z-index: 9999;
+  transition: 500ms ease-in-out;
+  
+  & span {
+    color: whitesmoke;
+    font-size: 1rem;
+  }
+
+  &:hover {
+    height: 10%;
+  }
+`
+
+export const CoverButton = styled.div`
+  width: 150px
 `

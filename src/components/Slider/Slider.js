@@ -1,10 +1,10 @@
-import {ArrowButton, SliderArrow, SliderContainer, SliderWrapper} from "./styles";
-import {useEffect, useLayoutEffect, useRef, useState} from "react";
+import {ArrowButton, SliderContainer, SliderWrapper} from "./styles";
+import {useLayoutEffect, useRef, useState} from "react";
 import SliderItem from "./SliderItem";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import useSlide from "../hooks/useSlide";
+import useSlide from "../../hooks/useSlide";
 
-const Slider = ({books, type}, ...restProps) => {
+const Slider = ({books, category}, ...restProps) => {
 
     const [containerWidth, setContainerWidth] = useState(0)
     const [itemWidth, setItemWidth] = useState(0)
@@ -40,7 +40,7 @@ const Slider = ({books, type}, ...restProps) => {
             <SliderContainer ref={containerRef} {...slideProps}>
                 {
                     books?.map((book) => (
-                        <SliderItem key={book.id} book={book} type={type} setItemWidth={setItemWidth}/>
+                        <SliderItem key={book.id} book={book} category={category} setItemWidth={setItemWidth}/>
                     ))
                 }
             </SliderContainer>
